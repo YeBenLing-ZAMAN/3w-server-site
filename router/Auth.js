@@ -74,6 +74,23 @@ router.post('/login', async (req, res) => {
 
 })
 
+router.get('/signup', async (req, res) => {
+    try {
+        const allUserinfo = await User.find()
+        res.send(allUserinfo);
+    } catch (err) {
+        console.log(err)
+
+    }
+
+})
+
+router.delete('/signup', async (req, res) => {
+    const allUserinfo = await User.deleteMany()
+    // console.log(allWalletInfo);
+    res.send(allUserinfo);
+
+})
 
 
 module.exports = router;

@@ -36,5 +36,23 @@ router.post('/wallet_add', async (req, res) => {
     }
 })
 
+router.get('/wallet_add', async (req, res) => {
+    try {
+        const allWalletInfo = await Wallet.find()
+        res.send(allWalletInfo);
+    } catch (err) {
+        console.log(err)
+
+    }
+
+})
+
+router.delete('/wallet_add', async (req, res) => {
+    const allWalletInfo = await Wallet.deleteMany()
+    // console.log(allWalletInfo);
+    res.send(allWalletInfo);
+
+})
+
 
 module.exports = router;
