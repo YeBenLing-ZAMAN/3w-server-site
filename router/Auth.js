@@ -25,6 +25,7 @@ router.post('/signup', async (req, res) => {
         }
         const user = new User({ firstName, lastName, email, phone, password, confirm_password });
 
+         /* user infor store in database */
         const userSignUp = await user.save();
         if (userSignUp) {
             res.status(201).json({ message: "user signup sucessfully" })
