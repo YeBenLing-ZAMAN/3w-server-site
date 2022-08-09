@@ -3,17 +3,18 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 
 
-/* user info */
+/* user schema get */
 const User = require("../Model/userSchema");
 
 
 router.get('/', async (req, res) => {
-    res.send('server is found! for router auth')
+    res.send('server is found!')
 })
 
 router.post('/signup', async (req, res) => {
-    const data = req.body;
-    const { firstName, lastName, email, phone, password, confirm_password } = req.body;
+    const data = req.body.data;
+    // console.log(data);
+    const { firstName, lastName, email, phone, password, confirm_password } = req.body.data;
     if (!firstName || !lastName || !phone || !email || !password || !confirm_password) {
         return res.status(422).json({ error: "please filled properly" });
     }
@@ -42,13 +43,14 @@ router.post('/signup', async (req, res) => {
 })
 
 router.post('/login', async (req, res) => {
-    // console.log(req.body);
-    try {
-        const { email, password } = req.body;
-        if (!email || !password) {
-            return res.status(400).json({ error: "please filled you data" });
-        }
+    console.log(req.body.data);
 
+    const { email, password } = req.body.data;
+    if (!email || !password) {
+        return res.status(400).json({ error: "please filled you data" });
+    }
+
+    try {
         const userLogin = await User.findOne({ email: email })
         // console.log(userLogin); // get full information
 
@@ -62,7 +64,7 @@ router.post('/login', async (req, res) => {
             }
 
         } else {
-            res.status(400).json({ error: "Invalid Credientials" });
+            res.status(400).json({ error: "user is not register " });
         }
 
 
@@ -71,6 +73,7 @@ router.post('/login', async (req, res) => {
     }
 
 })
+
 
 
 module.exports = router;

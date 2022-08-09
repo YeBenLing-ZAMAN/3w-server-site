@@ -31,7 +31,6 @@ const userSchema = new mongoose.Schema({
 /* password hashing  (middleware )*/
 
 userSchema.pre('save', async function (next) {
-    console.log("i am here")
     if (this.isModified('password')) {
         this.password = await bcrypt.hash(this.password, 12);
         this.confirm_password = await bcrypt.hash(this.confirm_password, 12);
