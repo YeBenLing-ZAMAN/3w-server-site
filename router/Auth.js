@@ -30,7 +30,7 @@ router.post('/signup', async (req, res) => {
         /* user infor store in database */
         const userSignUp = await user.save();
         if (userSignUp) {
-            res.status(201).json({ message: "user signup sucessfully" })
+            res.status(201).json({ message: "user signup successfully" })
         } else {
             res.status(500).json({ error: "Failed to signup" })
 

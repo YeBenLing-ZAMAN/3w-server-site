@@ -26,7 +26,7 @@ router.post('/wallet_add', async (req, res) => {
 
         const walletAdd = await wallet.save();
         if (walletAdd) {
-            return res.status(201).json({ message: "Wallet info add sucessfully" })
+            return res.status(201).json({ message: "Wallet info add successfully" })
         } else {
             return res.status(500).json({ error: "Failed to add wallet info" })
         }
