@@ -2,21 +2,19 @@ const User = require("../../Model/userSchema");
 const bcrypt = require("bcryptjs");
 
 /* register */
-const registerUser = async (res, req) => {
+const registerUser = async (req, res) => {
   try {
-    const data = req.body.data;
-    // console.log(data);
+    console.log(req.body);
     const { firstName, lastName, email, phone, password, confirm_password } =
-      req.body.data;
+      req.body;
     if (
       !firstName ||
       !lastName ||
       !phone ||
       !email ||
-      !password ||
-      !confirm_password
+      !password
     ) {
-      return res.status(422).json({ error: "please filled properly" });
+      return res.status(400).json({ error: "please filled properly" });
     }
 
     /* for email exieted or not */
@@ -46,10 +44,10 @@ const registerUser = async (res, req) => {
 };
 
 /* login */
-const authUser = async (res, req) => {
+const authUser = async (req, res) => {
   // console.log(req.body.data);
 
-  const { email, password } = req.body.data;
+  const { email, password } = req.body;
   if (!email || !password) {
     return res.status(400).json({ error: "please filled you data" });
   }
@@ -62,7 +60,7 @@ const authUser = async (res, req) => {
       /* password checking with bcrypt */
       const isMatch = await bcrypt.compare(password, userLogin.password);
       if (!isMatch) {
-        res.status(400).json({ message: "password wrong" });
+        res.status(400).json({ error: "password wrong" });
       } else {
         res.json({ message: "user login successfully" });
       }
@@ -74,7 +72,7 @@ const authUser = async (res, req) => {
   }
 };
 
-const getuser = async (_req, res) => {
+const getUser = async (_req, res) => {
   try {
     const allUserinfo = await User.find();
     res.send(allUserinfo);
@@ -86,5 +84,5 @@ const getuser = async (_req, res) => {
 module.exports = {
   registerUser,
   authUser,
-  getuser,
+  getUser,
 };

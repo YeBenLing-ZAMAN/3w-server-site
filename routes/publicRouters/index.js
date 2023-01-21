@@ -4,9 +4,14 @@ const router = express.Router();
 const {
   registerUser,
   authUser,
-  getuser
+  getUser
 } = require("../../controller/publicController/index");
 
-router.post("/login", authUser);
-router.get("/get_all_user", getuser);
+
 router.post("/register", registerUser);
+router.post("/login", authUser);
+router.get("/get_all_user", getUser);
+
+
+
+module.exports = router;
