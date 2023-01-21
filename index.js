@@ -26,6 +26,13 @@ app.use(express.json());
 /* mongoDB connection */
 connectDB();
 
+
+// base API
+app.get("/", (req, res) => {
+    res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+    res.send("Hello server is ready !");
+  });
+
 /* link router  */
 app.use("./public/api",publicRoutes);
 app.use(require("./routes/WalletInfoStore"));
