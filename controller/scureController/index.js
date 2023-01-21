@@ -3,7 +3,7 @@ const Wallet = require("../../Model/walletSchema");
 const createWallet = async (req, res) => {
   // console.log(req.body.data);
   try {
-    const { walletAddress, requestAmount, requestType, time } = req.body.data;
+    const { walletAddress, requestAmount, requestType, time } = req.body;
 
     if (!walletAddress || !requestAmount || !requestType || !time) {
       return res.status(422).json({ error: "please filled properly" });
