@@ -8,6 +8,7 @@ const connectDB = require("./DB/Config");
 
 /* get all routers */
 const publicRoutes = require("./routes/publicRouters/index");
+const secureRoutes = require("./routes/secureRouters/index");
 
 
 
@@ -35,7 +36,7 @@ app.get("/", (req, res) => {
 
 /* link router  */
 app.use("./public/api",publicRoutes);
-app.use(require("./routes/WalletInfoStore"));
+app.use("./secure/api",secureRoutes);
 
 app.listen(port, () => {
   console.log(`server listening on port ${port}`);
