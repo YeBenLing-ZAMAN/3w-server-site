@@ -1,7 +1,8 @@
 const Wallet = require("../../Model/walletSchema");
 
 const createWallet = async (req, res) => {
-  // console.log(req.body.data);
+  const user_id = req.auth.id;
+  console.log(user_id);
   try {
     const { walletAddress, requestAmount, requestType, time } = req.body;
 

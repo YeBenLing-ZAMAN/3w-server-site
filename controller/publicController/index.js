@@ -1,5 +1,6 @@
 const User = require("../../Model/userSchema");
 const bcrypt = require("bcryptjs");
+const { generateToken } = require("../../config/generateToken");
 
 /* register */
 const registerUser = async (req, res) => {
@@ -7,13 +8,7 @@ const registerUser = async (req, res) => {
     console.log(req.body);
     const { firstName, lastName, email, phone, password, confirm_password } =
       req.body;
-    if (
-      !firstName ||
-      !lastName ||
-      !phone ||
-      !email ||
-      !password
-    ) {
+    if (!firstName || !lastName || !phone || !email || !password) {
       return res.status(400).json({ error: "please filled properly" });
     }
 
@@ -62,7 +57,10 @@ const authUser = async (req, res) => {
       if (!isMatch) {
         res.status(400).json({ error: "password wrong" });
       } else {
-        res.json({ message: "user login successfully" });
+        res.json({
+          token: generateToken(email),
+          message: "user login successfully",
+        });
       }
     } else {
       res.status(400).json({ error: "user is not register " });
@@ -72,17 +70,7 @@ const authUser = async (req, res) => {
   }
 };
 
-const getUser = async (_req, res) => {
-  try {
-    const allUserinfo = await User.find();
-    res.send(allUserinfo);
-  } catch (err) {
-    console.log(err);
-  }
-};
-
 module.exports = {
   registerUser,
   authUser,
-  getUser,
 };
